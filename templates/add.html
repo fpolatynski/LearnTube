@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block title %}: add {% endblock %}
+
+{% block main %}
+<form action="/add" method="post">
+    <div class="mb-3"><input  style="width: 600px" id="link" name="link" type="text" placeholder="paste yt link here">
+        <button class="btn btn-dark" type="submit">Add</button></div>
+</form>
+{% endblock %}

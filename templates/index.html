@@ -1,0 +1,11 @@
+
+{% extends "layout.html" %}
+{% block title %}: add {% endblock %}
+
+{% block main %}
+{% for film in films %}
+<div class="container mb-5">
+    <iframe height="600" width="900"src={{ film[0] }}></iframe>
+</div>
+{% endfor %}
+{% endblock %}
