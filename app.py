@@ -1,7 +1,7 @@
 from flask import Flask, session, render_template, request, redirect
 from flask_session import Session
 import sqlite3
-from helpers import login_required, youtube_link_to_embed
+from helpers import login_required, save_yt
 from werkzeug.security import check_password_hash, generate_password_hash
 
 # initiate app
@@ -30,7 +30,11 @@ cur.execute("""
     CREATE TABLE IF NOT EXISTS films (
         id INTEGER PRIMARY KEY,
         link TEXT,
+        embed_link TEXT,
         user_id INTEGER,
+        title TEXT,
+        length INTEGER,/* in seconds*/
+        thumbnail TEXT,
         FOREIGN KEY (user_id) REFERENCES  users(id)
     );
 """)
@@ -40,7 +44,7 @@ cur.execute("""
 @login_required
 def index():
     row = cur.execute("""
-        SELECT link FROM films
+        SELECT embed_link FROM films
         WHERE user_id=?
     """, (session['user_id'],))
     films = row.fetchall()
@@ -92,13 +96,9 @@ def logout():
 @login_required
 def add():
     if request.method == "POST":
-        url = youtube_link_to_embed(request.form.get("link"))
         # TODO: check if input is valid
-        cur.execute("""
-            INSERT INTO films (link, user_id)
-            VALUES (?, ?)
-        """, (url, session['user_id']))
-        con.commit()
+        save_yt(request.form.get("link"), cur, con)
+
         return redirect("/")
     return render_template("add.html")
 
