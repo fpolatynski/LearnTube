@@ -5,7 +5,11 @@
 {% block main %}
     {% for film in films %}
         <div class="container mb-5">
-            <iframe height="600" width="900" src={{ film[0] }} allowfullscreen></iframe>
+            <iframe height="600" width="900" src={{ film[1] }} allowfullscreen></iframe>
+            <form action="/" method="post">
+                <input type="hidden" name="id" value="{{ film[0] }}">
+                <button class="btn btn-danger " type="submit"> delete </button>
+            </form>
         </div>
     {% endfor %}
 {% endblock %}

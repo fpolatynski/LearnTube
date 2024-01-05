@@ -40,11 +40,19 @@ cur.execute("""
 """)
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
+    if request.method =="POST":
+        ids = request.form.get("id")
+        cur.execute("""
+            DELETE FROM films
+            WHERE id=?
+        """, (ids,))
+        con.commit()
+
     row = cur.execute("""
-        SELECT embed_link FROM films
+        SELECT id, embed_link FROM films
         WHERE user_id=?
     """, (session['user_id'],))
     films = row.fetchall()
@@ -98,7 +106,6 @@ def add():
     if request.method == "POST":
         # TODO: check if input is valid
         save_yt(request.form.get("link"), cur, con)
-
         return redirect("/")
     return render_template("add.html")
 
