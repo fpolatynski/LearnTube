@@ -3,7 +3,11 @@
 
 {% block main %}
 <form action="/add" method="post">
-    <div class="mb-3"><input  style="width: 600px" id="link" name="link" type="text" placeholder="paste yt link here">
-        <button class="btn btn-dark" type="submit">Add</button></div>
+    <div class="mb-3"><input  style="width: 600px" name="link" type="text" placeholder="paste yt link here">
+        <button class="btn btn-dark" type="submit">Add yt</button></div>
+</form>
+<form action="/add" method="post">
+    <div class="mb-3"><input  style="width: 600px" name="search" type="text" placeholder="search yt">
+        <button class="btn btn-dark" type="submit">Search</button></div>
 </form>
 {% endblock %}

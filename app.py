@@ -1,7 +1,7 @@
 from flask import Flask, session, render_template, request, redirect
 from flask_session import Session
 import sqlite3
-from helpers import login_required, save_yt
+from helpers import login_required, save_yt, search_yt_films
 from werkzeug.security import check_password_hash, generate_password_hash
 
 # initiate app
@@ -105,8 +105,17 @@ def logout():
 def add():
     if request.method == "POST":
         # TODO: check if input is valid
-        save_yt(request.form.get("link"), cur, con)
-        return redirect("/")
+        url = request.form.get("link")
+        search = request.form.get("search")
+        id_to_add = request.form.get("to_add")
+        if url:
+            save_yt(request.form.get("link"), cur, con)
+        if search:
+            films = search_yt_films(search)
+            return render_template("chose_film.html", films=films)
+        if id_to_add:
+            save_yt(f"https://www.youtube.com/watch?v={id_to_add}", cur, con)
+
     return render_template("add.html")
 
 

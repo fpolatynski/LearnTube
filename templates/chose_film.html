@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}: add {% endblock %}
+
+{% block main %}
+<table>
+    {% for film in films %}
+    <tr>
+        <td><img src="{{film.thumbnails}}" alt="thumbnail"></td>
+        <td>{{ film.title}}</td>
+        <td>
+            <form action="/add" method="post">
+                <input type="hidden" name="to_add" value="{{ film.id }}">
+                <button type="submit">Add</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
