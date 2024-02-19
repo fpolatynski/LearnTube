@@ -14,11 +14,11 @@ app hosted locally which contains only movies chosen by user. App support accoun
 - You can add movie by link to YouTube film or search keyword inside an app to choose from recommendations. 
 - App is hosted locally on your computer and works on any web browser.
 
->## Technologies
-> - Python
-> - Flask
-> - Sqlite3
-> - Bootstrap
+## Technologies
+- Python
+- Flask
+- Sqlite3
+- Bootstrap
 
 
 ## Project purpose
